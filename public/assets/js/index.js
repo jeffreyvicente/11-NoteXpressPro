@@ -12,6 +12,8 @@ if (window.location.pathname === '/notes') {
   noteList = document.querySelectorAll('.list-container .list-group');
 }
 
+newNoteBtn.addEventListener('click', handleNewNoteView );
+
 // Show an element
 const show = (elem) => {
   elem.style.display = 'inline';
@@ -180,4 +182,18 @@ if (window.location.pathname === '/notes') {
   noteText.addEventListener('keyup', handleRenderSaveBtn);
 }
 
-getAndRenderNotes();
+document.addEventListener('DOMContentLoaded', () => {
+  // ...
+
+  const notesLink = document.querySelector('.notes-link');
+  notesLink.addEventListener('click', handleNotesLinkClick);
+
+  // ...
+});
+
+const handleNotesLinkClick = (e) => {
+  e.preventDefault();
+  // Navigate to notes.html
+  window.location.href = 'notes.html';
+};
+

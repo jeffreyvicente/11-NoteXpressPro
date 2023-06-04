@@ -1,43 +1,37 @@
 const express = require('express');
 const path = require('path');
-const noteData = require('./db/db.json');
+const fs = require('fs');
+
 
 const PORT = 3001;
 
 const app = express();
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.get('/notes', (req, res) => {
-  res.sendFile(path.join(__dirname, 'notes.html'));
+  res.sendFile(path.join(__dirname, './public/notes.html'));
   
 });
 
-//app.get('/api/notes', (req, res) => res.json(noteData));
-
-
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "./public/index.html"))
 });
-
-app.post('/api/notes', (req, res) => {
-    // Inform the client that their POST request was received
-    res.json(`${req.method} request received to upvote`);
-  
-    // Log our request to the terminal
-    console.info(`${req.method} request received to upvote`);
-  });
 
 // GET request for upvotes
-app.get('/api/upvotes', (req, res) => {
-    // Inform the client
-    res.json(`${req.method} request received to retrieve upvote count`);
-  
-    // Log our request to the terminal
-    console.info(`${req.method} request received to retrieve upvote count`);
+app.get("/api/notes", (req, res) => {
+    fs.readFile(path.join(__dirname, "./db/db.json1"), "utf8", (error,notes) => {
+        if (error) {
+            return console.log(error)
+        }
+        res.json(JSON.parse(notes))
+    })
   });
 
+  
+  
 app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${PORT}`);
 });

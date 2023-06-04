@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs');
 
 //Sets the port number for the project
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 //Creates an instance of express
 const app = express();

@@ -4,6 +4,7 @@ let saveNoteBtn;
 let newNoteBtn;
 let noteList;
 
+
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
   noteText = document.querySelector('.note-textarea');
@@ -12,7 +13,7 @@ if (window.location.pathname === '/notes') {
   noteList = document.querySelectorAll('.list-container .list-group');
 }
 
-newNoteBtn.addEventListener('click', handleNewNoteView );
+
 
 // Show an element
 const show = (elem) => {
@@ -110,6 +111,8 @@ const handleNewNoteView = (e) => {
   renderActiveNote();
 };
 
+newNoteBtn.addEventListener('click', handleNewNoteView);
+
 const handleRenderSaveBtn = () => {
   if (!noteTitle.value.trim() || !noteText.value.trim()) {
     hide(saveNoteBtn);
@@ -197,3 +200,4 @@ const handleNotesLinkClick = (e) => {
   window.location.href = 'notes.html';
 };
 
+getAndRenderNotes();
